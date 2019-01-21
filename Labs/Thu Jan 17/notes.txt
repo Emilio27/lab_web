@@ -1,0 +1,3 @@
+* Creamos un nuevo proyecto en GCP
+* Creamos una nueva instancia en Compute Engine > VM Instances con CentOS
+* Apagamos la instancia para que no se hagan cobros
