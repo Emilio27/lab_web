@@ -69,3 +69,21 @@ Agregamos hasta abajo, para poder executar archivos python o C o lo que sea
    Options +ExecCGI
    SetHandler cgi-script
 </Directory>
+
+Creamos la carpeta do y le cambiamos el contexto y los permisos
+$ chcon -t httpd_sys_script_exec_t do
+$ chmod go-w+rw do
+
+Para poder ejecutar de manera protegida los scripts
+# yum install perl-CPAN
+
+Para conectarme al equipo donde se encuentran los paquetes de cgi, descargarlos y compilarlos
+# perl -MCPAN -e shell
+
+Dentro del shell que te abre:
+$ install CGI
+marca error, porque no tenemos make
+
+TAREA:
+No he probado el comando, pero Raúl dice que es este
+# yum groupinstall "Development Tools" -y
