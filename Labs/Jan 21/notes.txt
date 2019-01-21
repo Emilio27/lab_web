@@ -1,0 +1,71 @@
+Checamos en Home que no nos está cobrando nada
+Arrancamos la máquina virtual
+Abrimos una conexión ssh
+Vamos a instalar Apache2 (httpd en CentoOS 7)
+Cambiamos al root user para poder instalar
+$ sudo su -
+# yum install httpd
+Raíz en donde podemos poner el contendo web es: /var/www/html/
+Arrancamos el servicios con:
+# systemctl start httpd.service
+# systemctl status httpd.service
+
+Creamos un index.html en /var/www/html/
+
+Podemos entrar al index.html de /var/www/html/ si nos metemos al ip externa y le quitamos el https
+
+Creamos un nuevo usuario
+# useradd user1
+# passwd user1
+pass: otreblaug
+
+/etc/httpd/conf/httpd.conf
+
+dentro de ese file, la línea
+- DocumentRoot "/var/www/html"
+es la que dice en qué folder va a buscar el contendio web
+
+- Listen 80
+especifica el puerto
+
+Modificamos /etc/httpd/conf.d/userdir.conf
+Comentamos la línea
+- UserDir disabled
+Descomentamos la línea
+- UserDir public_html
+y la cambiamos a
+- UserDir html
+
+Cambiamos la línea de
+- <Directory "/home/*/public_html">
+a
+- <Directory "/home/*/html">
+
+Apagamos httpd y lo reiniciamos para que se apliquen las nuevas configs
+# systemctl restart httpd.service
+
+Configuramos para que el servicio se arranque siempre cuando arranques la VM
+# systemctl enable httpd.service
+
+Cambiamos al usuario que habíamos hecho (user1)
+# su - user1
+
+Creamos la carpeta de html
+$ mkdir html
+
+Cambiamos permisos (estando en el homefolder de user1)
+$ chmod go+rx-w ~
+$ chmod go+rx-w html
+$ chcon -t httpd_sys_content_t html
+
+permisos:
+drwxr-xr-x la carpeta html dentro de user1
+drwxr-xr-x la carpeta user1
+
+Volvemos a entrar a /etc/httpd/conf.d/userdir.conf
+
+Agregamos hasta abajo, para poder executar archivos python o C o lo que sea
+<Directory "/home/*/html/do">
+   Options +ExecCGI
+   SetHandler cgi-script
+</Directory>
