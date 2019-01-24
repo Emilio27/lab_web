@@ -77,13 +77,5 @@ $ chmod go-w+rw do
 Para poder ejecutar de manera protegida los scripts
 # yum install perl-CPAN
 
-Para conectarme al equipo donde se encuentran los paquetes de cgi, descargarlos y compilarlos
-# perl -MCPAN -e shell
-
-Dentro del shell que te abre:
-$ install CGI
-marca error, porque no tenemos make
-
-TAREA:
-No he probado el comando, pero Raúl dice que es este
+Instalar make y otras herramientas
 # yum groupinstall "Development Tools" -y

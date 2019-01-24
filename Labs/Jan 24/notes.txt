@@ -1,0 +1,12 @@
+Arrancamos la VM
+
+Para conectarme al equipo donde se encuentran los paquetes de cgi, descargarlos y compilarlos
+# perl -MCPAN -e shell
+
+Dentro del shell que te abre:
+$ install CPAN
+$ reload CPAN
+$ install HTML::Entities
+$ install CGI
+$ install DBI
+
