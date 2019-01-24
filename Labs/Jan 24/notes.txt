@@ -9,4 +9,79 @@ $ reload CPAN
 $ install HTML::Entities
 $ install CGI
 $ install DBI
+$ exit
 
+Le otorgamos un nivel de seguridad al servidor httpd para que pueda leer el contenido de los directorios de los usuarios
+$ sudo setsebool httpd_enable_homedirs true
+
+$ sudo su - user1
+$ cd html
+$ ls -Z
+$ cd do
+
+Configuramos para que nos permita agregar archivos con terminaciones .exe, etc
+Instalamos madres que faltaron
+$ logout
+$ sudo yum install perl-CPAN perl-CGI
+$ sudo yum update
+$ sudo vim /etc/httpd/conf/httpd.conf
+
+Descomentamos la línea
+- AddHandler cgi-script .cgi
+y la modificamos a
+- AddHandler cgi-script .exe .do .asp. .jsp .app
+
+Reiniciamos httpd para recargar config
+$ sudo systemctl restart httpd.service
+
+Volvemos al usuario user1
+$ sudo su - user1
+$ cd html/do/
+
+Creamos un archivo, npi por qué terminación .exe, pero eso dijo
+$ vim programa.exe
+
+==================================
+#!/usr/bin/perl
+
+use CGI ':standard';
+
+print header,
+   start_html,
+   "esto es una prueba",
+   end_html;
+==================================
+
+$ perl html/do/programa.exe
+
+Cambió permisos del archivo y del folder do, que los tenía mal
+$ chmod -R 755 do/
+
+$ sudo su -
+# whereis suexec
+# mv /usr/sbin/suexec /usr/sbin/back.suexec
+
+Restart httpd
+# systemctl restart httpd.service
+
+# sudo su - user1
+Creamos otro archivo
+$ vim programa2.exe
+==================================
+#!/usr/bin/perl
+
+use CGI ':standard';
+
+print header,
+   start_html('programa2'),
+      start_form,
+         "Escribe tu nombre: ",
+         text_field('nombre'),
+         br,
+         "Escribe tu password: ",
+         password_field('pass'),
+         br, hr,
+         submit,
+      end_form,
+   end_html;
+==================================
