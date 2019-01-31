@@ -17,7 +17,6 @@ Podemos entrar al index.html de /var/www/html/ si nos metemos al ip externa y le
 Creamos un nuevo usuario
 # useradd user1
 # passwd user1
-pass: otreblaug
 
 /etc/httpd/conf/httpd.conf
 
