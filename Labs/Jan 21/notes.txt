@@ -53,8 +53,7 @@ Creamos la carpeta de html
 $ mkdir html
 
 Cambiamos permisos (estando en el homefolder de user1)
-$ chmod go+rx-w ~
-$ chmod go+rx-w html
+$ chmod -R 755 ~
 $ chcon -t httpd_sys_content_t html
 
 permisos:
@@ -76,6 +75,7 @@ Volvemos a user1
 # su - user1
 
 Creamos la carpeta do dentro de user1/html/ y le cambiamos el contexto y los permisos
+$ mkdir ~/html/do
 $ chcon -t httpd_sys_script_exec_t do
 $ chmod go-w+rw do
 
