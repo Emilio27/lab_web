@@ -52,7 +52,7 @@ $ perl html/do/programa.exe
 Volvemos a root
 $ exit
 # whereis suexec
-# mv /usr/sbin/suexec /usr/sbin/suexec
+# mv /usr/sbin/suexec /usr/sbin/suexec.bak
 
 Restart httpd
 # systemctl restart httpd.service

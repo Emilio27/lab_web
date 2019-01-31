@@ -77,7 +77,7 @@ Volvemos a user1
 Creamos la carpeta do dentro de user1/html/ y le cambiamos el contexto y los permisos
 $ mkdir ~/html/do
 $ chcon -t httpd_sys_script_exec_t do
-$ chmod go-w+rw do
+$ chmod -R 755 do
 
 Volvemos a root
 $ logout
