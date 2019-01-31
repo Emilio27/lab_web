@@ -61,6 +61,9 @@ permisos:
 drwxr-xr-x la carpeta html dentro de user1
 drwxr-xr-x la carpeta user1
 
+Volvemos a root
+$ logout
+
 Volvemos a entrar a /etc/httpd/conf.d/userdir.conf
 
 Agregamos hasta abajo, para poder executar archivos python o C o lo que sea
@@ -69,9 +72,15 @@ Agregamos hasta abajo, para poder executar archivos python o C o lo que sea
    SetHandler cgi-script
 </Directory>
 
-Creamos la carpeta do y le cambiamos el contexto y los permisos
+Volvemos a user1
+# su - user1
+
+Creamos la carpeta do dentro de user1/html/ y le cambiamos el contexto y los permisos
 $ chcon -t httpd_sys_script_exec_t do
 $ chmod go-w+rw do
+
+Volvemos a root
+$ logout
 
 Para poder ejecutar de manera protegida los scripts
 # yum install perl-CPAN

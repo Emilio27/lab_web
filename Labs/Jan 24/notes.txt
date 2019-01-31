@@ -12,19 +12,12 @@ $ install DBI
 $ exit
 
 Le otorgamos un nivel de seguridad al servidor httpd para que pueda leer el contenido de los directorios de los usuarios
-$ sudo setsebool httpd_enable_homedirs true
-
-$ sudo su - user1
-$ cd html
-$ ls -Z
-$ cd do
+# setsebool httpd_enable_homedirs true
 
 Configuramos para que nos permita agregar archivos con terminaciones .exe, etc
 Instalamos madres que faltaron
-$ logout
-$ sudo yum install perl-CPAN perl-CGI
-$ sudo yum update
-$ sudo vim /etc/httpd/conf/httpd.conf
+# yum install perl-CPAN perl-CGI
+# vim /etc/httpd/conf/httpd.conf
 
 Descomentamos la línea
 - AddHandler cgi-script .cgi
@@ -32,10 +25,10 @@ y la modificamos a
 - AddHandler cgi-script .exe .do .asp. .jsp .app
 
 Reiniciamos httpd para recargar config
-$ sudo systemctl restart httpd.service
+# systemctl restart httpd.service
 
 Volvemos al usuario user1
-$ sudo su - user1
+# sudo su - user1
 $ cd html/do/
 
 Creamos un archivo, npi por qué terminación .exe, pero eso dijo
@@ -52,17 +45,20 @@ print header,
    end_html;
 ==================================
 
+Cambiamos los permisos del archivo
+$ chmod 755 programa.exe
 $ perl html/do/programa.exe
 
-Cambió permisos del archivo y del folder do, que los tenía mal
-$ chmod -R 755 do/
-
-$ sudo su -
+Volvemos a root
+$ exit
 # whereis suexec
-# mv /usr/sbin/suexec /usr/sbin/back.suexec
+# mv /usr/sbin/suexec /usr/sbin/suexec
 
 Restart httpd
 # systemctl restart httpd.service
+
+Ya debes de poder correr el script desde el browser entrando a
+[external-ip]/~user1/do/programa.exe
 
 # sudo su - user1
 Creamos otro archivo
